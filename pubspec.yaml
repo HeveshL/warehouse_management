@@ -22,3 +22,15 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Nunito
+      fonts:
+      - asset: lib/assets/fonts/Nunito/Nunito-Bold.ttf
+      - asset: lib/assets/fonts/Nunito/Nunito-Light.ttf
+      - asset: lib/assets/fonts/Nunito/Nunito-Regular.ttf
+
+    - family: Open_Sans
+      fonts:
+      - asset: lib/assets/fonts/Open_Sans/OpenSans-Bold.ttf
+      - asset: lib/assets/fonts/Open_Sans/OpenSans-Light.ttf
+      - asset: lib/assets/fonts/Open_Sans/OpenSans-Regular.ttf
