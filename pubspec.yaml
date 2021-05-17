@@ -11,11 +11,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  firebase_auth: ^1.1.4
+  firebase_core: ^1.1.1
   flutter_svg: ^0.22.0
+  fluttertoast: ^8.0.6
+  cloud_firestore: ^2.1.0
+  intl: ^0.17.0
+  double_back_to_close_app: ^2.0.1
 
 
 dev_dependencies:
-  double_back_to_close_app: ^2.0.1
   flutter_test:
     sdk: flutter
   lint: ^1.5.3
