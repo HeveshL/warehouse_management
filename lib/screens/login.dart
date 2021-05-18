@@ -16,12 +16,12 @@ class _LoginState extends State<Login> {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   bool _failed = false;
   bool _isVisible = false;
+  bool _loading = false;
 
   Future signIn() async {
-    final FocusScopeNode currentFocus = FocusScope.of(context);
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.unfocus();
-    }
+    setState(() {
+      _loading = true;
+    });
     try {
       await firebaseAuth
           .signInWithEmailAndPassword(
@@ -34,6 +34,9 @@ class _LoginState extends State<Login> {
         _failed = true;
       });
     }
+    setState(() {
+      _loading = false;
+    });
   }
 
   @override
@@ -59,7 +62,6 @@ class _LoginState extends State<Login> {
           padding: const EdgeInsets.symmetric(horizontal: 36),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const Expanded(child: SizedBox()),
               SvgPicture.string(SvgStings.warehouse),
@@ -190,7 +192,20 @@ class _LoginState extends State<Login> {
                 ),
               ),
               const SizedBox(
-                height: 30,
+                height: 15,
+              ),
+              Center(
+                child:  Text(
+                  _failed?"Enter valid credentials!":"",
+                  style: const TextStyle(
+                    color: ColorPalette.mandy,
+                    fontFamily: "Nunito",
+                    
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -213,15 +228,23 @@ class _LoginState extends State<Login> {
                           ),
                         ],
                       ),
-                      child: const Center(
-                        child: Text(
-                          "Login",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: "Nunito",
-                            color: ColorPalette.white,
-                          ),
-                        ),
+                      child: Center(
+                        child: _loading
+                            ? const SizedBox(
+                                height: 15,
+                                width: 15,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : const Text(
+                                "Login",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: "Nunito",
+                                  color: ColorPalette.white,
+                                ),
+                              ),
                       ),
                     ),
                   ),
