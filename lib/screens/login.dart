@@ -195,12 +195,11 @@ class _LoginState extends State<Login> {
                 height: 15,
               ),
               Center(
-                child:  Text(
-                  _failed?"Enter valid credentials!":"",
+                child: Text(
+                  _failed ? "Enter valid credentials!" : "",
                   style: const TextStyle(
                     color: ColorPalette.mandy,
                     fontFamily: "Nunito",
-                    
                   ),
                 ),
               ),
