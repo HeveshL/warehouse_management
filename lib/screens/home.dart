@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:warehouse_management/functions/toast.dart';
 import 'package:warehouse_management/utils/color_palette.dart';
+import 'package:warehouse_management/widgets/product_group_card.dart';
 
 class Home extends StatelessWidget {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -72,22 +73,30 @@ class Home extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          try {
-                            final DocumentSnapshot<Map<String, dynamic>> _doc =
-                                await _firestore
-                                    .collection("utils")
-                                    .doc("productGroups")
-                                    .get();
-                            final List<dynamic> _tempList =
-                                _doc.data()['list'] as List<dynamic>;
-                            _tempList.add(_newProductGroup.text);
-                            _firestore
-                                .collection('utils')
-                                .doc("productGroups")
-                                .update({'list': _tempList});
-                            showTextToast("Added Successfully");
-                          } catch (e) {
-                            showTextToast("An Error Occured!");
+                          if (_newProductGroup.text != null &&
+                              _newProductGroup.text != "") {
+                            try {
+                              final DocumentSnapshot<Map<String, dynamic>>
+                                  _doc = await _firestore
+                                      .collection("utils")
+                                      .doc("productGroups")
+                                      .get();
+                              final List<dynamic> _tempList =
+                                  _doc.data()['list'] as List<dynamic>;
+
+                              _tempList.add(_newProductGroup.text);
+                              _firestore
+                                  .collection('utils')
+                                  .doc("productGroups")
+                                  .update({'list': _tempList});
+                              showTextToast("Added Successfully");
+                            } catch (e) {
+                              showTextToast("An Error Occured!");
+                            }
+                            Navigator.of(context).pop();
+                            _newProductGroup.text = "";
+                          } else {
+                            showTextToast("Enter Valid Name!");
                           }
                         },
                         child: Container(
@@ -194,51 +203,64 @@ class Home extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: SizedBox(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: const [
-                                SizedBox(
-                                  height: 20,
-                                ),
-                              ],
-                            ),
-                            const Text(
-                              "Product Groups",
-                              style: TextStyle(
-                                color: ColorPalette.timberGreen,
-                                fontSize: 20,
-                                fontFamily: "Nunito",
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: const [
+                              SizedBox(
+                                height: 20,
                               ),
-                            )
-                          ],
-                        ),
+                            ],
+                          ),
+                          const Text(
+                            "Product Groups",
+                            style: TextStyle(
+                              color: ColorPalette.timberGreen,
+                              fontSize: 20,
+                              fontFamily: "Nunito",
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Expanded(
+                            child: StreamBuilder(
+                              stream:
+                                  _firestore.collection("utils").snapshots(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<
+                                          QuerySnapshot<Map<String, dynamic>>>
+                                      snapshot) {
+                                if (snapshot.hasData) {
+                                  return GridView.builder(
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      childAspectRatio: 2,
+                                      crossAxisSpacing: 20,
+                                      mainAxisSpacing: 20,
+                                    ),
+                                    itemCount: (snapshot.data.docs[0]
+                                            .data()['list'] as List<dynamic>)
+                                        .length,
+                                    itemBuilder: (context, index) {
+                                      return ProductGroupCard(
+                                        name: snapshot.data.docs[0]
+                                            .data()['list'][index] as String,
+                                        key: UniqueKey(),
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              },
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   ),
                 ),
-                // StreamBuilder(
-                //   stream: _firestore
-                //       .collection("utils")
-                //       .snapshots(),
-                //   builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                //     print(snapshot.data.docs[0].data()['list']);
-                //     return Container();
-                //     // return ListView.builder(
-                //     //   itemCount:
-                //     //       (snapshot.data['list'] as List<dynamic>).length,
-                //     //   itemBuilder: (context, index) {
-                //     //     return Container(
-                //     //       child: Text(
-                //     //         snapshot.data['list'][index] as String,
-                //     //       ),
-                //     //     );
-                //     //   },
-                //     // );
-                //   },
-                // )
               ],
             ),
           ),
