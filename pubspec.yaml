@@ -9,6 +9,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  cached_network_image: ^3.0.0
   cloud_firestore: ^2.1.0
   double_back_to_close_app: ^2.0.1
   firebase_auth: ^1.1.4

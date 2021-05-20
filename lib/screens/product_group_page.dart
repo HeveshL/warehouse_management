@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:warehouse_management/functions/confirm_dialog.dart';
+import 'package:warehouse_management/models/product.dart';
 import 'package:warehouse_management/utils/color_palette.dart';
+import 'package:warehouse_management/widgets/product_card.dart';
 
 class ProductGroupPage extends StatelessWidget {
   final String name;
@@ -68,6 +70,7 @@ class ProductGroupPage extends StatelessWidget {
                             },
                           ),
                           Text(
+                            // TODO: Add text size limiter
                             name,
                             style: const TextStyle(
                               fontFamily: "Nunito",
@@ -122,6 +125,26 @@ class ProductGroupPage extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 20),
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: 3,
+                              itemBuilder: (context, index) {
+                                return ProductCard(
+                                  product: Product(
+                                    name: "H Motor",
+                                    company: "HMK Ltd.",
+                                    cost: 100.3,
+                                    decription: "Super poweful 1000W",
+                                    group: "Motor",
+                                    image:
+                                        "http://www.kohlipm.com/uploaded_files/product_img/motor6.jpg",
+                                    location: "Main Godwon 1st Floor",
+                                    quantity: 100,
+                                  ),
+                                );
+                              },
+                            ),
+                          )
                         ],
                       ),
                     ),
