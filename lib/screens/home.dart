@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:warehouse_management/functions/confirm_dialog.dart';
 import 'package:warehouse_management/functions/toast.dart';
 import 'package:warehouse_management/utils/color_palette.dart';
 import 'package:warehouse_management/widgets/product_group_card.dart';
@@ -140,128 +142,148 @@ class Home extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
-        color: ColorPalette.pacificBlue,
-        child: SafeArea(
-          child: Container(
-            color: ColorPalette.aquaHaze,
-            height: double.infinity,
-            width: double.infinity,
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(
-                    top: 10,
-                    left: 20,
-                    right: 15,
-                  ),
-                  width: double.infinity,
-                  height: 90,
-                  decoration: const BoxDecoration(
-                    color: ColorPalette.pacificBlue,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(16),
-                      bottomRight: Radius.circular(16),
+      body: DoubleBackToCloseApp(
+        snackBar: const SnackBar(
+          content: Text('Tap back again to leave'),
+        ),
+        child: Container(
+          color: ColorPalette.pacificBlue,
+          child: SafeArea(
+            child: Container(
+              color: ColorPalette.aquaHaze,
+              height: double.infinity,
+              width: double.infinity,
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(
+                      top: 10,
+                      left: 20,
+                      right: 15,
                     ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "Homepage",
-                        style: TextStyle(
-                          fontFamily: "Nunito",
-                          fontSize: 28,
-                          color: ColorPalette.timberGreen,
-                        ),
+                    width: double.infinity,
+                    height: 90,
+                    decoration: const BoxDecoration(
+                      color: ColorPalette.pacificBlue,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(16),
+                        bottomRight: Radius.circular(16),
                       ),
-                      Row(
-                        children: [
-                          IconButton(
-                            splashColor: ColorPalette.timberGreen,
-                            icon: const Icon(
-                              Icons.search,
-                              color: ColorPalette.timberGreen,
-                            ),
-                            onPressed: () {},
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Homepage",
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 28,
+                            color: ColorPalette.timberGreen,
                           ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.power_settings_new,
-                              color: ColorPalette.timberGreen,
-                            ),
-                            onPressed: () {
-                              _firebaseAuth.signOut();
-                            },
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: SizedBox(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: const [
-                              SizedBox(
-                                height: 20,
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              splashColor: ColorPalette.timberGreen,
+                              icon: const Icon(
+                                Icons.search,
+                                color: ColorPalette.timberGreen,
                               ),
-                            ],
-                          ),
-                          const Text(
-                            "Product Groups",
-                            style: TextStyle(
-                              color: ColorPalette.timberGreen,
-                              fontSize: 20,
-                              fontFamily: "Nunito",
+                              onPressed: () {},
                             ),
-                          ),
-                          const SizedBox(height: 20),
-                          Expanded(
-                            child: StreamBuilder(
-                              stream:
-                                  _firestore.collection("utils").snapshots(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<
-                                          QuerySnapshot<Map<String, dynamic>>>
-                                      snapshot) {
-                                if (snapshot.hasData) {
-                                  return GridView.builder(
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      childAspectRatio: 2,
-                                      crossAxisSpacing: 20,
-                                      mainAxisSpacing: 20,
-                                    ),
-                                    itemCount: (snapshot.data.docs[0]
-                                            .data()['list'] as List<dynamic>)
-                                        .length,
-                                    itemBuilder: (context, index) {
-                                      return ProductGroupCard(
-                                        name: snapshot.data.docs[0]
-                                            .data()['list'][index] as String,
-                                        key: UniqueKey(),
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  return Container();
-                                }
+                            IconButton(
+                              icon: const Icon(
+                                Icons.power_settings_new,
+                                color: ColorPalette.timberGreen,
+                              ),
+                              onPressed: () {
+                                showConfirmDialog(
+                                    context,
+                                    "Are you sure you want to Logout?",
+                                    "No",
+                                    "Yes", () {
+                                  Navigator.of(context).pop();
+                                }, () {
+                                  Navigator.of(context).pop();
+                                  _firebaseAuth.signOut();
+                                });
                               },
                             ),
-                          )
-                        ],
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: SizedBox(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: const [
+                                SizedBox(
+                                  height: 20,
+                                ),
+                              ],
+                            ),
+                            const Text(
+                              "Product Groups",
+                              style: TextStyle(
+                                color: ColorPalette.timberGreen,
+                                fontSize: 20,
+                                fontFamily: "Nunito",
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Expanded(
+                              child: StreamBuilder(
+                                stream:
+                                    _firestore.collection("utils").snapshots(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<
+                                            QuerySnapshot<Map<String, dynamic>>>
+                                        snapshot) {
+                                  if (snapshot.hasData) {
+                                    final List<dynamic> _productGroups =
+                                        snapshot.data.docs[0].data()['list']
+                                            as List<dynamic>;
+                                    return GridView.builder(
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        childAspectRatio: 2,
+                                        crossAxisSpacing: 20,
+                                        mainAxisSpacing: 20,
+                                      ),
+                                      itemCount: _productGroups.length,
+                                      itemBuilder: (context, index) {
+                                        return ProductGroupCard(
+                                          name: _productGroups[index] as String,
+                                          key: UniqueKey(),
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    return const Center(
+                                      child: SizedBox(
+                                        height: 40,
+                                        width: 40,
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
