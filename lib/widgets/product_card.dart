@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:warehouse_management/models/product.dart';
 import 'package:warehouse_management/utils/color_palette.dart';
@@ -11,7 +12,7 @@ class ProductCard extends StatelessWidget {
     return GestureDetector(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
-        height: 130,
+        height: 147,
         decoration: BoxDecoration(
           color: ColorPalette.white,
           borderRadius: BorderRadius.circular(16),
@@ -23,8 +24,140 @@ class ProductCard extends StatelessWidget {
             ),
           ],
         ),
-        padding: const EdgeInsets.all(11),
-        child: Row(),
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          children: [
+            SizedBox(
+              height: 87,
+              width: 87,
+              child: (product.image == null)
+                  ? Center(
+                      child: Icon(
+                        Icons.image,
+                        color: ColorPalette.nileBlue.withOpacity(0.5),
+                      ),
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(11),
+                      child: CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: product.image,
+                        errorWidget: (context, s, a) {
+                          return Icon(
+                            Icons.image,
+                            color: ColorPalette.nileBlue.withOpacity(0.5),
+                          );
+                        },
+                      ),
+                    ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              flex: 5,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.name ?? '',
+                    maxLines: 1,
+                    style: const TextStyle(
+                      fontFamily: "Nunito",
+                      fontSize: 20,
+                      color: ColorPalette.timberGreen,
+                    ),
+                  ),
+                  Text(
+                    product.location ?? '-',
+                    maxLines: 1,
+                    style: const TextStyle(
+                      fontFamily: "Nunito",
+                      fontSize: 12,
+                      color: ColorPalette.timberGreen,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        product.group ?? '-',
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 12,
+                          color: ColorPalette.timberGreen.withOpacity(0.44),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 5,
+                          top: 2,
+                          right: 5,
+                        ),
+                        child: Icon(
+                          Icons.circle,
+                          size: 5,
+                          color: ColorPalette.timberGreen.withOpacity(0.44),
+                        ),
+                      ),
+                      Text(
+                        product.company ?? '-',
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 12,
+                          color: ColorPalette.timberGreen.withOpacity(0.44),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    // width: 100,
+                    child: Text(
+                      product.decription ?? '-',
+                      maxLines: 3,
+                      style: TextStyle(
+                        fontFamily: "Nunito",
+                        fontSize: 11,
+                        color: ColorPalette.timberGreen.withOpacity(0.35),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    "₹${product.cost ?? '-'}",
+                    style: const TextStyle(
+                      fontFamily: "Nunito",
+                      fontSize: 14,
+                      color: ColorPalette.nileBlue,
+                    ),
+                  ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "${product.quantity ?? '-'}\nAvailable",
+                        style: const TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 12,
+                          color: ColorPalette.nileBlue,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

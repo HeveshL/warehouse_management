@@ -234,6 +234,7 @@ class _LoginState extends State<Login> {
                                 width: 15,
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2,
+                                  color: ColorPalette.aquaHaze,
                                 ),
                               )
                             : const Text(

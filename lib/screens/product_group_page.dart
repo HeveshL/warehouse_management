@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:warehouse_management/functions/confirm_dialog.dart';
 import 'package:warehouse_management/models/product.dart';
 import 'package:warehouse_management/utils/color_palette.dart';
@@ -10,7 +9,6 @@ class ProductGroupPage extends StatelessWidget {
   final String name;
   ProductGroupPage({Key key, this.name}) : super(key: key);
 
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
@@ -131,16 +129,19 @@ class ProductGroupPage extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return ProductCard(
                                   product: Product(
-                                    name: "H Motor",
-                                    company: "HMK Ltd.",
-                                    cost: 100.3,
-                                    decription: "Super poweful 1000W",
-                                    group: "Motor",
+                                    name: "XXXXXXXXXX",
+                                    company: "xxxxxxxxxx",
+                                    cost: 1000.3,
+                                    decription:
+                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus rutrum hendrerit nunc",
+                                    group: "xxxxxxxxxx",
                                     image:
-                                        "http://www.kohlipm.com/uploaded_files/product_img/motor6.jpg",
-                                    location: "Main Godwon 1st Floor",
-                                    quantity: 100,
+                                        "https://media.istockphoto.com/photos/blue-factory-equipment-in-a-building-picture-id157619272",
+                                    location:
+                                        "Main Godwon 1st Floor ryj ukilo uyhtrf rth y juiol",
+                                    quantity: 10000,
                                   ),
+                                  // product: Product(image: "a"),
                                 );
                               },
                             ),

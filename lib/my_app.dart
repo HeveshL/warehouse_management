@@ -17,7 +17,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Warehouse Management',
-      theme: ThemeData(accentColor: ColorPalette.white),
+      theme: ThemeData(
+        accentColor: ColorPalette.white,
+      ),
       home: FutureBuilder(
         future: _initialization,
         builder: (context, snapshot) {
