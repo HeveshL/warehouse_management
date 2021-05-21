@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:warehouse_management/functions/confirm_dialog.dart';
 import 'package:warehouse_management/models/product.dart';
+import 'package:warehouse_management/screens/new_product_page.dart';
 import 'package:warehouse_management/utils/color_palette.dart';
 import 'package:warehouse_management/widgets/product_card.dart';
 
@@ -20,7 +21,13 @@ class ProductGroupPage extends StatelessWidget {
           right: 10,
         ),
         child: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return NewProductPage(
+                group: name,
+              );
+            }));
+          },
           splashColor: ColorPalette.bondyBlue,
           backgroundColor: ColorPalette.pacificBlue,
           child: const Icon(

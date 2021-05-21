@@ -9,17 +9,17 @@ import 'package:warehouse_management/utils/color_palette.dart';
 
 class MyApp extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Warehouse Management',
-      theme: ThemeData(
-        accentColor: ColorPalette.white,
-      ),
+      theme: ThemeData(accentColor: ColorPalette.white),
       home: FutureBuilder(
         future: _initialization,
         builder: (context, snapshot) {
@@ -30,6 +30,8 @@ class MyApp extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasData && !snapshot.data.isAnonymous) {
                   return Home();
+                } else if (!snapshot.hasData) {
+                  return Splash();
                 } else {
                   return Login();
                 }
