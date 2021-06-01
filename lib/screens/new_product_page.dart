@@ -1,13 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:warehouse_management/functions/toast.dart';
 import 'package:warehouse_management/models/product.dart';
 import 'package:warehouse_management/utils/color_palette.dart';
+import 'package:warehouse_management/widgets/location_drop_down.dart';
 
 class NewProductPage extends StatelessWidget {
   final String group;
   NewProductPage({Key key, this.group}) : super(key: key);
 
   final Product newProduct = Product();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,18 @@ class NewProductPage extends StatelessWidget {
           right: 10,
         ),
         child: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            newProduct.group = group;
+            _firestore
+                .collection("products")
+                .add(newProduct.toMap())
+                .then((value) {
+              showTextToast('Added Sucessfully!');
+            }).catchError((e) {
+              showTextToast('Failed!');
+            });
+            Navigator.of(context).pop();
+          },
           splashColor: ColorPalette.bondyBlue,
           backgroundColor: ColorPalette.pacificBlue,
           child: const Icon(
@@ -112,7 +127,21 @@ class NewProductPage extends StatelessWidget {
                                   ),
                                   child: SingleChildScrollView(
                                     child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 8, bottom: 12),
+                                          child: Text(
+                                            "Product Group : $group",
+                                            style: const TextStyle(
+                                              fontFamily: "Nunito",
+                                              fontSize: 17,
+                                              color: ColorPalette.nileBlue,
+                                            ),
+                                          ),
+                                        ),
                                         Container(
                                           decoration: BoxDecoration(
                                             color: ColorPalette.white,
@@ -128,7 +157,8 @@ class NewProductPage extends StatelessWidget {
                                             ],
                                           ),
                                           height: 50,
-                                          child: TextField(
+                                          child: TextFormField(
+                                            initialValue: newProduct.name ?? '',
                                             onChanged: (value) {
                                               newProduct.name = value;
                                             },
@@ -157,6 +187,247 @@ class NewProductPage extends StatelessWidget {
                                                 ColorPalette.timberGreen,
                                           ),
                                         ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: ColorPalette.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      offset:
+                                                          const Offset(0, 3),
+                                                      blurRadius: 6,
+                                                      color: ColorPalette
+                                                          .nileBlue
+                                                          .withOpacity(0.1),
+                                                    ),
+                                                  ],
+                                                ),
+                                                height: 50,
+                                                child: TextFormField(
+                                                  initialValue:
+                                                      newProduct.cost == null
+                                                          ? ''
+                                                          : newProduct.cost
+                                                              .toString(),
+                                                  onChanged: (value) {
+                                                    newProduct.cost =
+                                                        double.parse(value);
+                                                  },
+                                                  textInputAction:
+                                                      TextInputAction.next,
+                                                  key: UniqueKey(),
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  style: const TextStyle(
+                                                    fontFamily: "Nunito",
+                                                    fontSize: 16,
+                                                    color:
+                                                        ColorPalette.nileBlue,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    border: InputBorder.none,
+                                                    hintText: "Cost",
+                                                    filled: true,
+                                                    fillColor:
+                                                        Colors.transparent,
+                                                    hintStyle: TextStyle(
+                                                      fontFamily: "Nunito",
+                                                      fontSize: 16,
+                                                      color: ColorPalette
+                                                          .nileBlue
+                                                          .withOpacity(0.58),
+                                                    ),
+                                                  ),
+                                                  cursorColor:
+                                                      ColorPalette.timberGreen,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 20,
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: ColorPalette.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      offset:
+                                                          const Offset(0, 3),
+                                                      blurRadius: 6,
+                                                      color: ColorPalette
+                                                          .nileBlue
+                                                          .withOpacity(0.1),
+                                                    ),
+                                                  ],
+                                                ),
+                                                height: 50,
+                                                child: TextFormField(
+                                                  initialValue:
+                                                      newProduct.quantity ==
+                                                              null
+                                                          ? ''
+                                                          : newProduct.quantity
+                                                              .toString(),
+                                                  onChanged: (value) {
+                                                    newProduct.quantity =
+                                                        int.parse(value);
+                                                  },
+                                                  textInputAction:
+                                                      TextInputAction.next,
+                                                  key: UniqueKey(),
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  style: const TextStyle(
+                                                    fontFamily: "Nunito",
+                                                    fontSize: 16,
+                                                    color:
+                                                        ColorPalette.nileBlue,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    border: InputBorder.none,
+                                                    hintText: "Quantity",
+                                                    filled: true,
+                                                    fillColor:
+                                                        Colors.transparent,
+                                                    hintStyle: TextStyle(
+                                                      fontFamily: "Nunito",
+                                                      fontSize: 16,
+                                                      color: ColorPalette
+                                                          .nileBlue
+                                                          .withOpacity(0.58),
+                                                    ),
+                                                  ),
+                                                  cursorColor:
+                                                      ColorPalette.timberGreen,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: ColorPalette.white,
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                offset: const Offset(0, 3),
+                                                blurRadius: 6,
+                                                color: ColorPalette.nileBlue
+                                                    .withOpacity(0.1),
+                                              ),
+                                            ],
+                                          ),
+                                          height: 50,
+                                          child: TextFormField(
+                                            initialValue:
+                                                newProduct.company ?? '',
+                                            onChanged: (value) {
+                                              newProduct.company = value;
+                                            },
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            key: UniqueKey(),
+                                            keyboardType: TextInputType.text,
+                                            style: const TextStyle(
+                                              fontFamily: "Nunito",
+                                              fontSize: 16,
+                                              color: ColorPalette.nileBlue,
+                                            ),
+                                            decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              hintText: "Company",
+                                              filled: true,
+                                              fillColor: Colors.transparent,
+                                              hintStyle: TextStyle(
+                                                fontFamily: "Nunito",
+                                                fontSize: 16,
+                                                color: ColorPalette.nileBlue
+                                                    .withOpacity(0.58),
+                                              ),
+                                            ),
+                                            cursorColor:
+                                                ColorPalette.timberGreen,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: ColorPalette.white,
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                offset: const Offset(0, 3),
+                                                blurRadius: 6,
+                                                color: ColorPalette.nileBlue
+                                                    .withOpacity(0.1),
+                                              ),
+                                            ],
+                                          ),
+                                          height: 50,
+                                          child: TextFormField(
+                                            initialValue:
+                                                newProduct.description ?? '',
+                                            onChanged: (value) {
+                                              newProduct.description = value;
+                                            },
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            key: UniqueKey(),
+                                            keyboardType: TextInputType.text,
+                                            style: const TextStyle(
+                                              fontFamily: "Nunito",
+                                              fontSize: 16,
+                                              color: ColorPalette.nileBlue,
+                                            ),
+                                            decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              hintText: "Description",
+                                              filled: true,
+                                              fillColor: Colors.transparent,
+                                              hintStyle: TextStyle(
+                                                fontFamily: "Nunito",
+                                                fontSize: 16,
+                                                color: ColorPalette.nileBlue
+                                                    .withOpacity(0.58),
+                                              ),
+                                            ),
+                                            cursorColor:
+                                                ColorPalette.timberGreen,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 20),
+                                        const Padding(
+                                          padding: EdgeInsets.only(
+                                            left: 8,
+                                            bottom: 5,
+                                          ),
+                                          child: Text(
+                                            "Location",
+                                            style: TextStyle(
+                                              fontFamily: "Nunito",
+                                              fontSize: 14,
+                                              color: ColorPalette.nileBlue,
+                                            ),
+                                          ),
+                                        ),
+                                        LocationDD(product: newProduct),
                                       ],
                                     ),
                                   ),

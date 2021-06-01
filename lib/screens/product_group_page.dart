@@ -131,28 +131,39 @@ class ProductGroupPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 20),
                           Expanded(
-                            child: ListView.builder(
-                              itemCount: 3,
-                              itemBuilder: (context, index) {
-                                return ProductCard(
-                                  product: Product(
-                                    name: "XXXXXXXXXX",
-                                    company: "xxxxxxxxxx",
-                                    cost: 1000.3,
-                                    decription:
-                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus rutrum hendrerit nunc",
-                                    group: "xxxxxxxxxx",
-                                    image:
-                                        "https://media.istockphoto.com/photos/blue-factory-equipment-in-a-building-picture-id157619272",
-                                    location:
-                                        "Main Godwon 1st Floor ryj ukilo uyhtrf rth y juiol",
-                                    quantity: 10000,
-                                  ),
-                                  // product: Product(image: "a"),
+                            child: StreamBuilder(
+                              stream:
+                                  _firestore.collection("products").where("group",isEqualTo: name).snapshots(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<
+                                          QuerySnapshot<Map<String, dynamic>>>
+                                      snapshot) {
+                                if (!snapshot.hasData) {
+                                  return const Center(
+                                    child: SizedBox(
+                                      height: 40,
+                                      width: 40,
+                                      child: CircularProgressIndicator(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  );
+                                }
+                                // TODO: Sorting
+                                return ListView.builder(
+                                  itemCount: snapshot.data.docs.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return ProductCard(
+                                      product: Product.fromMap(
+                                          snapshot.data.docs[index].data()),
+                                      docID: snapshot.data.docs[index].id,
+                                    );
+                                  },
                                 );
                               },
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),

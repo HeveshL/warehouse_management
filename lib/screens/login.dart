@@ -64,7 +64,7 @@ class _LoginState extends State<Login> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Expanded(child: SizedBox()),
-              SvgPicture.string(SvgStings.warehouse),
+              SvgPicture.string(SvgStrings.warehouse),
               const SizedBox(
                 height: 18,
               ),
@@ -80,7 +80,7 @@ class _LoginState extends State<Login> {
               ),
               Row(
                 children: [
-                  SvgPicture.string(SvgStings.location),
+                  SvgPicture.string(SvgStrings.location),
                   const SizedBox(
                     width: 10,
                   ),

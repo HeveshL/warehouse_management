@@ -5,7 +5,8 @@ import 'package:warehouse_management/utils/color_palette.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
-  const ProductCard({Key key, this.product}) : super(key: key);
+  final String docID;
+  const ProductCard({Key key, this.product, this.docID}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +115,7 @@ class ProductCard extends StatelessWidget {
                   SizedBox(
                     // width: 100,
                     child: Text(
-                      product.decription ?? '-',
+                      product.description ?? '-',
                       maxLines: 3,
                       style: TextStyle(
                         fontFamily: "Nunito",

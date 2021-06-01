@@ -1,4 +1,4 @@
-mixin SvgStings {
+mixin SvgStrings {
   static const String warehouse = '''
 <svg xmlns="http://www.w3.org/2000/svg" width="80.667" height="83.448" viewBox="0 0 80.667 83.448">
   <g id="warehouse_icon" data-name="warehouse icon" transform="translate(-6.724 0)">
