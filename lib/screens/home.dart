@@ -77,6 +77,7 @@ class Home extends StatelessWidget {
                         onTap: () async {
                           if (_newProductGroup.text != null &&
                               _newProductGroup.text != "") {
+                            //TODO: Check if already that group name exists
                             try {
                               final DocumentSnapshot<Map<String, dynamic>>
                                   _doc = await _firestore

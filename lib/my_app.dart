@@ -30,8 +30,6 @@ class MyApp extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasData && !snapshot.data.isAnonymous) {
                   return Home();
-                } else if (!snapshot.hasData) {
-                  return Splash();
                 } else {
                   return Login();
                 }

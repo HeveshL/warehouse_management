@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:warehouse_management/functions/confirm_dialog.dart';
 import 'package:warehouse_management/models/product.dart';
 import 'package:warehouse_management/screens/new_product_page.dart';
 import 'package:warehouse_management/utils/color_palette.dart';
@@ -75,8 +74,9 @@ class ProductGroupPage extends StatelessWidget {
                             },
                           ),
                           Text(
-                            // TODO: Add text size limiter
-                            name,
+                            name.length > 14
+                                ? '${name.substring(0, 12)}..'
+                                : name,
                             style: const TextStyle(
                               fontFamily: "Nunito",
                               fontSize: 28,
@@ -132,8 +132,10 @@ class ProductGroupPage extends StatelessWidget {
                           const SizedBox(height: 20),
                           Expanded(
                             child: StreamBuilder(
-                              stream:
-                                  _firestore.collection("products").where("group",isEqualTo: name).snapshots(),
+                              stream: _firestore
+                                  .collection("products")
+                                  .where("group", isEqualTo: name)
+                                  .snapshots(),
                               builder: (BuildContext context,
                                   AsyncSnapshot<
                                           QuerySnapshot<Map<String, dynamic>>>
