@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:warehouse_management/screens/home.dart';
-import 'package:warehouse_management/screens/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:warehouse_management/screens/home.dart';
+import 'package:warehouse_management/screens/login.dart';
 import 'package:warehouse_management/screens/splash.dart';
 import 'package:warehouse_management/utils/color_palette.dart';
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Warehouse Management',
-      theme: ThemeData(accentColor: ColorPalette.white),
+      theme: ThemeData(colorScheme: ColorScheme.fromSwatch().copyWith(secondary: ColorPalette.white)),
       home: FutureBuilder(
         future: _initialization,
         builder: (context, snapshot) {

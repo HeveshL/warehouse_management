@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:warehouse_management/models/product.dart';
 import 'package:warehouse_management/screens/new_product_page.dart';
 import 'package:warehouse_management/utils/color_palette.dart';

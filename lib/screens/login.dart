@@ -1,9 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:warehouse_management/functions/toast.dart';
 import 'package:warehouse_management/utils/color_palette.dart';
 import 'package:warehouse_management/utils/svg_strings.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class Login extends StatefulWidget {
   @override
