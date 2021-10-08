@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:warehouse_management/models/product.dart';
 import 'package:warehouse_management/screens/new_product_page.dart';
+import 'package:warehouse_management/screens/search_product_in_group.dart';
 import 'package:warehouse_management/utils/color_palette.dart';
 import 'package:warehouse_management/widgets/product_card.dart';
 
@@ -99,6 +100,14 @@ class ProductGroupPage extends StatelessWidget {
                             ),
                             onPressed: () {
                               //TODO
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      SearchProductInGroupPage(
+                                    name: name,
+                                  ),
+                                ),
+                              );
                             },
                           ),
                           IconButton(

@@ -15,3 +15,5 @@ void main() {
   );
   runApp(MyApp());
 }
+
+//TODO Text overflow right way

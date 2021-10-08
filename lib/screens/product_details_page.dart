@@ -28,7 +28,7 @@ class ProductDetailsPage extends StatelessWidget {
                 .doc(docID)
                 .update(product.toMap())
                 .then((value) {
-              showTextToast('Added Sucessfully!');
+              showTextToast('Updated Sucessfully!');
             }).catchError((e) {
               showTextToast('Failed!');
             });
@@ -70,6 +70,7 @@ class ProductDetailsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IconButton(
                             icon: const Icon(
@@ -89,6 +90,24 @@ class ProductDetailsPage extends StatelessWidget {
                             ),
                           ),
                         ],
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.delete,
+                          color: ColorPalette.timberGreen,
+                        ),
+                        onPressed: () {
+                          _firestore
+                              .collection("products")
+                              .doc(docID)
+                              .delete()
+                              .then((value) {
+                            showTextToast('Deleted Sucessfully!');
+                          }).catchError((e) {
+                            showTextToast('Failed!');
+                          });
+                          Navigator.of(context).pop();
+                        },
                       ),
                     ],
                   ),

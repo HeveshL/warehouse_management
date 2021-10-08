@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:warehouse_management/functions/confirm_dialog.dart';
 import 'package:warehouse_management/functions/toast.dart';
+import 'package:warehouse_management/screens/global_search_page.dart';
 import 'package:warehouse_management/utils/color_palette.dart';
 import 'package:warehouse_management/widgets/product_group_card.dart';
 
@@ -194,7 +195,12 @@ class Home extends StatelessWidget {
                                 color: ColorPalette.timberGreen,
                               ),
                               onPressed: () {
-                                //TODO
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const GlobalSearchPage(),
+                                  ),
+                                );
                               },
                             ),
                             IconButton(
