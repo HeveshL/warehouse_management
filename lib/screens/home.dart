@@ -77,7 +77,6 @@ class Home extends StatelessWidget {
                         onTap: () async {
                           if (_newProductGroup.text != null &&
                               _newProductGroup.text != "") {
-                            //TODO: Check if already that group name exists
                             try {
                               final DocumentSnapshot<Map<String, dynamic>>
                                   _doc = await _firestore
@@ -86,16 +85,20 @@ class Home extends StatelessWidget {
                                       .get();
                               final List<dynamic> _tempList =
                                   _doc.data()['list'] as List<dynamic>;
-
-                              _tempList.add(_newProductGroup.text);
-                              _firestore
-                                  .collection('utils')
-                                  .doc("productGroups")
-                                  .update({'list': _tempList});
-                              showTextToast("Added Successfully");
+                              if (_tempList.contains(_newProductGroup.text)) {
+                                showTextToast("Group Name already created");
+                              } else {
+                                _tempList.add(_newProductGroup.text);
+                                _firestore
+                                    .collection('utils')
+                                    .doc("productGroups")
+                                    .update({'list': _tempList});
+                                showTextToast("Added Successfully");
+                              }
                             } catch (e) {
                               showTextToast("An Error Occured!");
                             }
+                            // ignore: use_build_context_synchronously
                             Navigator.of(context).pop();
                             _newProductGroup.text = "";
                           } else {
@@ -190,7 +193,9 @@ class Home extends StatelessWidget {
                                 Icons.search,
                                 color: ColorPalette.timberGreen,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                //TODO
+                              },
                             ),
                             IconButton(
                               icon: const Icon(
@@ -242,14 +247,17 @@ class Home extends StatelessWidget {
                               child: StreamBuilder(
                                 stream:
                                     _firestore.collection("utils").snapshots(),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot<
-                                            QuerySnapshot<Map<String, dynamic>>>
-                                        snapshot) {
+                                builder: (
+                                  BuildContext context,
+                                  AsyncSnapshot<
+                                          QuerySnapshot<Map<String, dynamic>>>
+                                      snapshot,
+                                ) {
                                   if (snapshot.hasData) {
                                     final List<dynamic> _productGroups =
                                         snapshot.data.docs[0].data()['list']
                                             as List<dynamic>;
+                                    _productGroups.sort();
                                     return GridView.builder(
                                       gridDelegate:
                                           const SliverGridDelegateWithFixedCrossAxisCount(

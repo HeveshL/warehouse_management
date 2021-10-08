@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void showConfirmDialog(BuildContext context, String title, String action1title,
-    String action2title, Function action1, Function action2) {
+    String action2title, Function action1, Function action2,) {
   showDialog(
     context: context,
     builder: (BuildContext context) {

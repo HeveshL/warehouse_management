@@ -25,7 +25,7 @@ class _LoginState extends State<Login> {
     try {
       await firebaseAuth
           .signInWithEmailAndPassword(
-              email: _emailController.text, password: _passwordController.text)
+              email: _emailController.text, password: _passwordController.text,)
           .then((value) {
         showTextToast('Loged In Sucessfully!');
       });

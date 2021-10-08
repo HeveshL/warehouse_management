@@ -69,6 +69,7 @@ class ProductCard extends StatelessWidget {
                       color: ColorPalette.timberGreen,
                     ),
                   ),
+                  //TODO Location logo
                   Text(
                     product.location ?? '-',
                     maxLines: 1,

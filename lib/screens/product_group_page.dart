@@ -21,11 +21,15 @@ class ProductGroupPage extends StatelessWidget {
         ),
         child: FloatingActionButton(
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return NewProductPage(
-                group: name,
-              );
-            }));
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return NewProductPage(
+                    group: name,
+                  );
+                },
+              ),
+            );
           },
           splashColor: ColorPalette.bondyBlue,
           backgroundColor: ColorPalette.pacificBlue,
@@ -93,14 +97,18 @@ class ProductGroupPage extends StatelessWidget {
                               Icons.search,
                               color: ColorPalette.timberGreen,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              //TODO
+                            },
                           ),
                           IconButton(
                             icon: const Icon(
                               Icons.delete,
                               color: ColorPalette.timberGreen,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              //TODO
+                            },
                           ),
                         ],
                       )
@@ -135,11 +143,14 @@ class ProductGroupPage extends StatelessWidget {
                               stream: _firestore
                                   .collection("products")
                                   .where("group", isEqualTo: name)
+                                  .orderBy('name')
                                   .snapshots(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<
-                                          QuerySnapshot<Map<String, dynamic>>>
-                                      snapshot) {
+                              builder: (
+                                BuildContext context,
+                                AsyncSnapshot<
+                                        QuerySnapshot<Map<String, dynamic>>>
+                                    snapshot,
+                              ) {
                                 if (!snapshot.hasData) {
                                   return const Center(
                                     child: SizedBox(
@@ -151,14 +162,14 @@ class ProductGroupPage extends StatelessWidget {
                                     ),
                                   );
                                 }
-                                // TODO: Sorting
                                 return ListView.builder(
                                   itemCount: snapshot.data.docs.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return ProductCard(
                                       product: Product.fromMap(
-                                          snapshot.data.docs[index].data()),
+                                        snapshot.data.docs[index].data(),
+                                      ),
                                       docID: snapshot.data.docs[index].id,
                                     );
                                   },

@@ -38,12 +38,13 @@ class ProductGroupCard extends StatelessWidget {
             ],
           ),
           child: Text(
-            // TODO: Add text length limiter
             name,
             style: const TextStyle(
               fontFamily: "Nunito",
               fontSize: 20,
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
           // TODO: Add counter
         ),
