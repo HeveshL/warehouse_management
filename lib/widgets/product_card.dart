@@ -80,15 +80,29 @@ class ProductCard extends StatelessWidget {
                       color: ColorPalette.timberGreen,
                     ),
                   ),
-                  //TODO Location logo
-                  Text(
-                    product.location ?? '-',
-                    maxLines: 1,
-                    style: const TextStyle(
-                      fontFamily: "Nunito",
-                      fontSize: 12,
-                      color: ColorPalette.timberGreen,
-                    ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.location_on,
+                        size: 14,
+                        color: ColorPalette.timberGreen.withOpacity(0.44),
+                      ),
+                      Text(
+                        product.location ?? '-',
+                        maxLines: 1,
+                        style: const TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 12,
+                          color: ColorPalette.timberGreen,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
                   ),
                   Row(
                     children: [
@@ -123,6 +137,9 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
                     ],
+                  ),
+                  const SizedBox(
+                    height: 5,
                   ),
                   SizedBox(
                     // width: 100,

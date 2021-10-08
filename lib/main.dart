@@ -17,3 +17,5 @@ void main() {
 }
 
 //TODO Text overflow right way
+//TODO Confirm delete in product delete
+//TODO Font case in searching

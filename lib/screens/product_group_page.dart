@@ -99,7 +99,6 @@ class ProductGroupPage extends StatelessWidget {
                               color: ColorPalette.timberGreen,
                             ),
                             onPressed: () {
-                              //TODO
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) =>

@@ -11,9 +11,15 @@ class LocationDD extends StatefulWidget {
 }
 
 class _LocationDDState extends State<LocationDD> {
+  final List<String> locations = [
+    "Godown 1, 1st Floor",
+    "Godown 1, 2nd Floor",
+    "Godown 2, 1st Floor",
+    "Godown 2, 2nd Floor",
+  ];
   @override
   Widget build(BuildContext context) {
-    widget.product.location ??= "a";
+    widget.product.location ??= locations[0];
     return Container(
       decoration: BoxDecoration(
         color: ColorPalette.white,
@@ -36,12 +42,7 @@ class _LocationDDState extends State<LocationDD> {
             widget.product.location = newValue as String;
           });
         },
-        items: [
-          "a",
-          "b",
-          "c",
-          "d",
-        ].map((process) {
+        items: locations.map((process) {
           return DropdownMenuItem(
             value: process,
             child: Text(
