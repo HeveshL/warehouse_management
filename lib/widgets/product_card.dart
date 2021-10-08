@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:warehouse_management/models/product.dart';
+import 'package:warehouse_management/screens/product_details_page.dart';
 import 'package:warehouse_management/utils/color_palette.dart';
 
 class ProductCard extends StatelessWidget {
@@ -11,6 +12,16 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ProductDetailsPage(
+              docID: docID,
+              product: product,
+            ),
+          ),
+        );
+      },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
         height: 147,
