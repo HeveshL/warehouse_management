@@ -7,9 +7,9 @@ import 'package:warehouse_management/utils/color_palette.dart';
 import 'package:warehouse_management/widgets/location_drop_down.dart';
 
 class ProductDetailsPage extends StatelessWidget {
-  final Product product;
-  final String docID;
-  ProductDetailsPage({Key key, this.product, this.docID}) : super(key: key);
+  final Product? product;
+  final String? docID;
+  ProductDetailsPage({Key? key, this.product, this.docID}) : super(key: key);
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -26,7 +26,7 @@ class ProductDetailsPage extends StatelessWidget {
             _firestore
                 .collection("products")
                 .doc(docID)
-                .update(product.toMap())
+                .update(product!.toMap())
                 .then((value) {
               showTextToast('Updated Sucessfully!');
             }).catchError((e) {
@@ -155,7 +155,7 @@ class ProductDetailsPage extends StatelessWidget {
                                             bottom: 12,
                                           ),
                                           child: Text(
-                                            "Product Group : ${product.group}",
+                                            "Product Group : ${product!.group}",
                                             style: const TextStyle(
                                               fontFamily: "Nunito",
                                               fontSize: 17,
@@ -179,9 +179,9 @@ class ProductDetailsPage extends StatelessWidget {
                                           ),
                                           height: 50,
                                           child: TextFormField(
-                                            initialValue: product.name ?? '',
+                                            initialValue: product!.name ?? '',
                                             onChanged: (value) {
-                                              product.name = value;
+                                              product!.name = value;
                                             },
                                             textInputAction:
                                                 TextInputAction.next,
@@ -232,12 +232,12 @@ class ProductDetailsPage extends StatelessWidget {
                                                 ),
                                                 height: 50,
                                                 child: TextFormField(
-                                                  initialValue: product.cost ==
+                                                  initialValue: product!.cost ==
                                                           null
                                                       ? ''
-                                                      : product.cost.toString(),
+                                                      : product!.cost.toString(),
                                                   onChanged: (value) {
-                                                    product.cost =
+                                                    product!.cost =
                                                         double.parse(value);
                                                   },
                                                   textInputAction:
@@ -293,12 +293,12 @@ class ProductDetailsPage extends StatelessWidget {
                                                 height: 50,
                                                 child: TextFormField(
                                                   initialValue:
-                                                      product.quantity == null
+                                                      product!.quantity == null
                                                           ? ''
-                                                          : product.quantity
+                                                          : product!.quantity
                                                               .toString(),
                                                   onChanged: (value) {
-                                                    product.quantity =
+                                                    product!.quantity =
                                                         int.parse(value);
                                                   },
                                                   textInputAction:
@@ -352,9 +352,9 @@ class ProductDetailsPage extends StatelessWidget {
                                           ),
                                           height: 50,
                                           child: TextFormField(
-                                            initialValue: product.company ?? '',
+                                            initialValue: product!.company ?? '',
                                             onChanged: (value) {
-                                              product.company = value;
+                                              product!.company = value;
                                             },
                                             textInputAction:
                                                 TextInputAction.next,
@@ -401,9 +401,9 @@ class ProductDetailsPage extends StatelessWidget {
                                           height: 50,
                                           child: TextFormField(
                                             initialValue:
-                                                product.description ?? '',
+                                                product!.description ?? '',
                                             onChanged: (value) {
-                                              product.description = value;
+                                              product!.description = value;
                                             },
                                             textInputAction:
                                                 TextInputAction.next,
@@ -464,7 +464,7 @@ class ProductDetailsPage extends StatelessWidget {
                                           child: Container(
                                             color: ColorPalette.timberGreen
                                                 .withOpacity(0.1),
-                                            child: (product.image == null)
+                                            child: (product!.image == null)
                                                 ? Center(
                                                     child: Icon(
                                                       Icons.image,
@@ -475,7 +475,7 @@ class ProductDetailsPage extends StatelessWidget {
                                                   )
                                                 : CachedNetworkImage(
                                                     fit: BoxFit.cover,
-                                                    imageUrl: product.image,
+                                                    imageUrl: product!.image!,
                                                     errorWidget:
                                                         (context, s, a) {
                                                       return Icon(

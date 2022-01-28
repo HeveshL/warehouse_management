@@ -7,8 +7,8 @@ import 'package:warehouse_management/utils/color_palette.dart';
 import 'package:warehouse_management/widgets/product_card.dart';
 
 class ProductGroupPage extends StatelessWidget {
-  final String name;
-  ProductGroupPage({Key key, this.name}) : super(key: key);
+  final String? name;
+  ProductGroupPage({Key? key, this.name}) : super(key: key);
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -79,9 +79,9 @@ class ProductGroupPage extends StatelessWidget {
                             },
                           ),
                           Text(
-                            name.length > 14
-                                ? '${name.substring(0, 12)}..'
-                                : name,
+                            name!.length > 14
+                                ? '${name!.substring(0, 12)}..'
+                                : name!,
                             style: const TextStyle(
                               fontFamily: "Nunito",
                               fontSize: 28,
@@ -171,14 +171,14 @@ class ProductGroupPage extends StatelessWidget {
                                   );
                                 }
                                 return ListView.builder(
-                                  itemCount: snapshot.data.docs.length,
+                                  itemCount: snapshot.data!.docs.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return ProductCard(
                                       product: Product.fromMap(
-                                        snapshot.data.docs[index].data(),
+                                        snapshot.data!.docs[index].data(),
                                       ),
-                                      docID: snapshot.data.docs[index].id,
+                                      docID: snapshot.data!.docs[index].id,
                                     );
                                   },
                                 );

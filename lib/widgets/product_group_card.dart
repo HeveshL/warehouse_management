@@ -3,9 +3,9 @@ import 'package:warehouse_management/screens/product_group_page.dart';
 import 'package:warehouse_management/utils/color_palette.dart';
 
 class ProductGroupCard extends StatelessWidget {
-  final String name;
+  final String? name;
 
-  const ProductGroupCard({Key key, this.name}) : super(key: key);
+  const ProductGroupCard({Key? key, this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class ProductGroupCard extends StatelessWidget {
             ],
           ),
           child: Text(
-            name,
+            name!,
             style: const TextStyle(
               fontFamily: "Nunito",
               fontSize: 20,

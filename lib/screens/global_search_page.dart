@@ -5,7 +5,7 @@ import 'package:warehouse_management/utils/color_palette.dart';
 import 'package:warehouse_management/widgets/product_card.dart';
 
 class GlobalSearchPage extends StatefulWidget {
-  const GlobalSearchPage({Key key}) : super(key: key);
+  const GlobalSearchPage({Key? key}) : super(key: key);
 
   @override
   State<GlobalSearchPage> createState() => _GlobalSearchPageState();
@@ -13,7 +13,7 @@ class GlobalSearchPage extends StatefulWidget {
 
 class _GlobalSearchPageState extends State<GlobalSearchPage> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  FocusNode inputFieldNode;
+  FocusNode? inputFieldNode;
   String searchQuery = '';
 
   @override
@@ -24,7 +24,7 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
 
   @override
   void dispose() {
-    inputFieldNode.dispose();
+    inputFieldNode!.dispose();
     super.dispose();
   }
 
@@ -152,14 +152,14 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
                                         );
                                       }
                                       return ListView.builder(
-                                        itemCount: snapshot.data.docs.length,
+                                        itemCount: snapshot.data!.docs.length,
                                         itemBuilder:
                                             (BuildContext context, int index) {
                                           return ProductCard(
                                             product: Product.fromMap(
-                                              snapshot.data.docs[index].data(),
+                                              snapshot.data!.docs[index].data(),
                                             ),
-                                            docID: snapshot.data.docs[index].id,
+                                            docID: snapshot.data!.docs[index].id,
                                           );
                                         },
                                       );

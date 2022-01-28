@@ -25,10 +25,10 @@ class MyApp extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-            return StreamBuilder<User>(
+            return StreamBuilder<User?>(
               stream: firebaseAuth.authStateChanges(),
               builder: (context, snapshot) {
-                if (snapshot.hasData && !snapshot.data.isAnonymous) {
+                if (snapshot.hasData && !snapshot.data!.isAnonymous) {
                   return Home();
                 } else {
                   return Login();

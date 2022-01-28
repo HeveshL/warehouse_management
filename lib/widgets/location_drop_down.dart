@@ -3,9 +3,9 @@ import 'package:warehouse_management/models/product.dart';
 import 'package:warehouse_management/utils/color_palette.dart';
 
 class LocationDD extends StatefulWidget {
-  final Product product;
+  final Product? product;
 
-  const LocationDD({Key key, this.product}) : super(key: key);
+  const LocationDD({Key? key, this.product}) : super(key: key);
   @override
   _LocationDDState createState() => _LocationDDState();
 }
@@ -19,7 +19,7 @@ class _LocationDDState extends State<LocationDD> {
   ];
   @override
   Widget build(BuildContext context) {
-    widget.product.location ??= locations[0];
+    widget.product!.location ??= locations[0];
     return Container(
       decoration: BoxDecoration(
         color: ColorPalette.white,
@@ -36,10 +36,10 @@ class _LocationDDState extends State<LocationDD> {
       child: DropdownButton(
         iconSize: 30,
         underline: const SizedBox(),
-        value: widget.product.location,
-        onChanged: (newValue) {
+        value: widget.product!.location,
+        onChanged: (dynamic newValue) {
           setState(() {
-            widget.product.location = newValue as String;
+            widget.product!.location = newValue as String?;
           });
         },
         items: locations.map((process) {

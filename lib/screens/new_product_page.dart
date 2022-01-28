@@ -7,8 +7,8 @@ import 'package:warehouse_management/utils/color_palette.dart';
 import 'package:warehouse_management/widgets/location_drop_down.dart';
 
 class NewProductPage extends StatelessWidget {
-  final String group;
-  NewProductPage({Key key, this.group}) : super(key: key);
+  final String? group;
+  NewProductPage({Key? key, this.group}) : super(key: key);
 
   final Product newProduct = Product();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -457,7 +457,7 @@ class NewProductPage extends StatelessWidget {
                                                   )
                                                 : CachedNetworkImage(
                                                     fit: BoxFit.cover,
-                                                    imageUrl: newProduct.image,
+                                                    imageUrl: newProduct.image!,
                                                     errorWidget:
                                                         (context, s, a) {
                                                       return Icon(

@@ -6,8 +6,8 @@ import 'package:warehouse_management/utils/color_palette.dart';
 import 'package:warehouse_management/widgets/product_card.dart';
 
 class SearchProductInGroupPage extends StatefulWidget {
-  final String name;
-  const SearchProductInGroupPage({Key key, this.name}) : super(key: key);
+  final String? name;
+  const SearchProductInGroupPage({Key? key, this.name}) : super(key: key);
 
   @override
   State<SearchProductInGroupPage> createState() =>
@@ -16,7 +16,7 @@ class SearchProductInGroupPage extends StatefulWidget {
 
 class _SearchProductInGroupPageState extends State<SearchProductInGroupPage> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  FocusNode inputFieldNode;
+  FocusNode? inputFieldNode;
   String searchQuery = '';
 
   @override
@@ -27,7 +27,7 @@ class _SearchProductInGroupPageState extends State<SearchProductInGroupPage> {
 
   @override
   void dispose() {
-    inputFieldNode.dispose();
+    inputFieldNode!.dispose();
     super.dispose();
   }
 
@@ -156,14 +156,14 @@ class _SearchProductInGroupPageState extends State<SearchProductInGroupPage> {
                                         );
                                       }
                                       return ListView.builder(
-                                        itemCount: snapshot.data.docs.length,
+                                        itemCount: snapshot.data!.docs.length,
                                         itemBuilder:
                                             (BuildContext context, int index) {
                                           return ProductCard(
                                             product: Product.fromMap(
-                                              snapshot.data.docs[index].data(),
+                                              snapshot.data!.docs[index].data(),
                                             ),
-                                            docID: snapshot.data.docs[index].id,
+                                            docID: snapshot.data!.docs[index].id,
                                           );
                                         },
                                       );

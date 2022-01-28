@@ -5,9 +5,9 @@ import 'package:warehouse_management/screens/product_details_page.dart';
 import 'package:warehouse_management/utils/color_palette.dart';
 
 class ProductCard extends StatelessWidget {
-  final Product product;
-  final String docID;
-  const ProductCard({Key key, this.product, this.docID}) : super(key: key);
+  final Product? product;
+  final String? docID;
+  const ProductCard({Key? key, this.product, this.docID}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class ProductCard extends StatelessWidget {
             SizedBox(
               height: 87,
               width: 87,
-              child: (product.image == null)
+              child: (product!.image == null)
                   ? Center(
                       child: Icon(
                         Icons.image,
@@ -53,7 +53,7 @@ class ProductCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(11),
                       child: CachedNetworkImage(
                         fit: BoxFit.cover,
-                        imageUrl: product.image,
+                        imageUrl: product!.image!,
                         errorWidget: (context, s, a) {
                           return Icon(
                             Icons.image,
@@ -72,7 +72,7 @@ class ProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.name ?? '',
+                    product!.name ?? '',
                     maxLines: 1,
                     style: const TextStyle(
                       fontFamily: "Nunito",
@@ -91,7 +91,7 @@ class ProductCard extends StatelessWidget {
                         color: ColorPalette.timberGreen.withOpacity(0.44),
                       ),
                       Text(
-                        product.location ?? '-',
+                        product!.location ?? '-',
                         maxLines: 1,
                         style: const TextStyle(
                           fontFamily: "Nunito",
@@ -107,7 +107,7 @@ class ProductCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        product.group ?? '-',
+                        product!.group ?? '-',
                         maxLines: 1,
                         style: TextStyle(
                           fontFamily: "Nunito",
@@ -128,7 +128,7 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        product.company ?? '-',
+                        product!.company ?? '-',
                         maxLines: 1,
                         style: TextStyle(
                           fontFamily: "Nunito",
@@ -144,7 +144,7 @@ class ProductCard extends StatelessWidget {
                   SizedBox(
                     // width: 100,
                     child: Text(
-                      product.description ?? '-',
+                      product!.description ?? '-',
                       maxLines: 3,
                       style: TextStyle(
                         fontFamily: "Nunito",
@@ -162,7 +162,7 @@ class ProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    "₹${product.cost ?? '-'}",
+                    "₹${product!.cost ?? '-'}",
                     style: const TextStyle(
                       fontFamily: "Nunito",
                       fontSize: 14,
@@ -173,7 +173,7 @@ class ProductCard extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        "${product.quantity ?? '-'}\nAvailable",
+                        "${product!.quantity ?? '-'}\nAvailable",
                         style: const TextStyle(
                           fontFamily: "Nunito",
                           fontSize: 12,

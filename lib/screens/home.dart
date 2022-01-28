@@ -85,7 +85,7 @@ class Home extends StatelessWidget {
                                       .doc("productGroups")
                                       .get();
                               final List<dynamic> _tempList =
-                                  _doc.data()['list'] as List<dynamic>;
+                                  _doc.data()!['list'] as List<dynamic>;
                               if (_tempList.contains(_newProductGroup.text)) {
                                 showTextToast("Group Name already created");
                               } else {
@@ -261,7 +261,7 @@ class Home extends StatelessWidget {
                                 ) {
                                   if (snapshot.hasData) {
                                     final List<dynamic> _productGroups =
-                                        snapshot.data.docs[0].data()['list']
+                                        snapshot.data!.docs[0].data()['list']
                                             as List<dynamic>;
                                     _productGroups.sort();
                                     return GridView.builder(
