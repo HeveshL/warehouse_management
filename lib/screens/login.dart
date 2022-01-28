@@ -57,7 +57,7 @@ class _LoginState extends State<Login> {
       // },
       child: Scaffold(
         backgroundColor: ColorPalette.aquaHaze,
-        resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomInset: false,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 36),
           child: Column(
