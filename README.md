@@ -1,4 +1,4 @@
-# Warehouse Management
+# Warehouse Management 🏬
 
 An application to manage the inventory in multiple warehouses of a business. The products will be stored in groups and user can create any number of groups. In a particular group any number of products can be added along with the whole information of the product.
 
@@ -41,6 +41,9 @@ flutter pub get
 flutter run
 ```
 
+## Downloads
+
+User Interface (Adobe XD) : [Download](https://github.com/HeveshL/warehouse_management/blob/master/doc_assets/Warehouse_Management_Ui.xd)
 
 ## License
 
