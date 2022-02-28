@@ -16,7 +16,6 @@ The business would require an App (can be used by multiple people at a time) tha
 <br>
 
 ## User Experience
----
 
 <br>
 
@@ -29,7 +28,6 @@ The business would require an App (can be used by multiple people at a time) tha
 - Setup [Firebase](https://firebase.flutter.dev/docs/overview/) App & download `google-services.json` file to `android/app`
 
 
-<br>
 
 ### Run
 - Clone the repository & Change directory
@@ -42,3 +40,20 @@ cd warehouse_management
 flutter pub get
 flutter run
 ```
+
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+
+
+## Authors
+
+- Hevesh Lakhwani : [@HeveshL](https://www.github.com/HeveshL) - hevesh000@gmail.com
+
+
+
+## Contributing
+
+Contributions are always welcome! Your feedback will help me grow as a developer and help me build better and more usable apps.
